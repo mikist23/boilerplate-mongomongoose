@@ -168,17 +168,20 @@ const removeManyPeople = (done) => {
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
-  Person.remove({favoriteFoods:foodToSearch},(err, removedFood)=>{
-    if(err){
-      console.error(err)
-      done(err)
-    }
-    else{
-      console.log("Removed person", removedFood)
-      done(null, removedFood)
-    }
-   })
-
+  // Find people who like the specified food, sort by name, limit to two documents, and hide their age
+  Person.find({ favoriteFoods: foodToSearch })
+    .sort({ name: 1 }) // Sort by name in ascending order
+    .limit(2) // Limit to two documents
+    .select({ age: 0 }) // Hide the age field
+    .exec((err, data) => {
+      if (err) {
+        console.error(err);
+        done(err);
+      } else {
+        console.log("Query result:", data);
+        done(null, data);
+      }
+    });
 };
 
 /** **Well Done !!**
