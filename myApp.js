@@ -168,14 +168,14 @@ const removeManyPeople = (done) => {
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
-  Person.remove({favoriteFoods:foodToSearch},(err, removedPerson)=>{
+  Person.remove({favoriteFoods:foodToSearch},(err, removedFood)=>{
     if(err){
       console.error(err)
       done(err)
     }
     else{
-      console.log("Removed person", removedPerson)
-      done(null, removedPerson)
+      console.log("Removed person", removedFood)
+      done(null, removedFood)
     }
    })
 
